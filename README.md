@@ -1,11 +1,9 @@
 # GAME AI : Chain Reaction
 
 ## Group Members:
-<ul>
-  <li>Rahul Dev E (re263)</li>
-  <li>Shikha Vyaghra (sv629)</li>
-  <li>Jacob Celestine (jc2777)</li>
-</ul>
+  1. [Rahul Dev E](https://github.com/rahuldeve)<br>
+  2. [Shikha Vyaghra](https://github.com/shikhavyaghra1989)<br>
+  3. [Jacob Celestine](https://github.com/jacobceles)<br>
 
 ## Goals:
 <ol>
