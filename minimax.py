@@ -1,8 +1,4 @@
-import numpy as np
-import numba
-
 from config import *
-from board import *
 from game import *
 
 

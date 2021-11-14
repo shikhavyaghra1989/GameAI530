@@ -1,4 +1,4 @@
-from enum import IntEnum, Flag, auto
+from enum import IntEnum, auto
 
 
 class Positions(IntEnum):

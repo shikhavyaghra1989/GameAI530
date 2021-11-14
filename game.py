@@ -1,8 +1,7 @@
-from board import *
-import config
-
-import numpy as np
 import numba
+import numpy as np
+
+import config
 
 utility_func = config.utility_func
 

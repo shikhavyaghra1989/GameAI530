@@ -1,9 +1,8 @@
-from positions import Positions
-import config
-
-import numpy as np
 import numba
-import random
+import numpy as np
+
+import config
+from positions import Positions
 
 
 @numba.njit

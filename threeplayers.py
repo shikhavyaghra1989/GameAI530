@@ -1,7 +1,7 @@
-from enum import IntEnum, Flag, auto
+from enum import Flag, auto
 
-import numpy as np
 import numba
+import numpy as np
 
 
 class ThreePlayers(Flag):
