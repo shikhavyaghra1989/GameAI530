@@ -5,10 +5,12 @@ import numpy as np
 import numba
 import random
 
+
 @numba.njit
 def get_position(i: int, j: int, width: int, height: int):
     # check if inside
-    if i > 0 and j > 0 and i < width - 1 and j < height - 1: return Positions.INSIDE
+    if 0 < i < width - 1 and 0 < j < height - 1:
+        return Positions.INSIDE
 
     left = False
     right = False
@@ -33,6 +35,7 @@ def get_position(i: int, j: int, width: int, height: int):
     if top is True and (left is False and right is False): return Positions.TOP_SIDE
     if bottom is True and (left is False and right is False): return Positions.BOTTOM_SIDE
 
+
 spec = [
     ('width', numba.uint8),
     ('height', numba.uint8),
@@ -40,6 +43,8 @@ spec = [
     ('atom_count', numba.uint8[:, :]),
     ('atom_type', numba.uint8[:, :])
 ]
+
+
 @numba.experimental.jitclass(spec)
 class Board():
     def __init__(self, width, height):
@@ -75,10 +80,10 @@ class Board():
         num_atoms = self.atom_count[i, j]
 
         # check corners
-        if (position == Positions.TOP_LEFT_CORNER or 
-            position == Positions.TOP_RIGHT_CORNER or 
-            position == Positions.BOTTOM_LEFT_CORNER or 
-            position == Positions.BOTTOM_RIGHT_CORNER ):
+        if (position == Positions.TOP_LEFT_CORNER or
+                position == Positions.TOP_RIGHT_CORNER or
+                position == Positions.BOTTOM_LEFT_CORNER or
+                position == Positions.BOTTOM_RIGHT_CORNER):
 
             # assert num_atoms <= 2
             if num_atoms >= 2:
@@ -87,10 +92,10 @@ class Board():
                 return False
 
         # check sides
-        if (position == Positions.TOP_SIDE or 
-            position == Positions.BOTTOM_SIDE or 
-            position == Positions.LEFT_SIDE or 
-            position == Positions.RIGHT_SIDE):
+        if (position == Positions.TOP_SIDE or
+                position == Positions.BOTTOM_SIDE or
+                position == Positions.LEFT_SIDE or
+                position == Positions.RIGHT_SIDE):
 
             # assert num_atoms <= 3
             if num_atoms >= 3:
@@ -122,7 +127,7 @@ class Board():
             self.place_atom(i + 1, j, atom_type)
             self.place_atom(i, j + 1, atom_type)
             return [(i + 1, j), (i, j + 1)]
-            
+
         if position == Positions.TOP_RIGHT_CORNER:
             self.place_atom(i, j - 1, atom_type)
             self.place_atom(i + 1, j, atom_type)
@@ -170,6 +175,7 @@ class Board():
             self.place_atom(i - 1, j, atom_type)
             self.place_atom(i + 1, j, atom_type)
             return [(i, j - 1), (i, j + 1), (i - 1, j), (i + 1, j)]
+
 
 def print_board(board: Board):
     atom_count_board = board.atom_count.astype(str)

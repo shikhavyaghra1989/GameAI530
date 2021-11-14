@@ -6,6 +6,7 @@ import numba
 
 utility_func = config.utility_func
 
+
 @numba.njit
 def allowed_moves_jitted(atom_type_board, player_value):
     out = np.zeros((atom_type_board.shape[0], atom_type_board.shape[1]), dtype=np.bool8)
@@ -14,12 +15,13 @@ def allowed_moves_jitted(atom_type_board, player_value):
     for i in range(atom_type_board.shape[0]):
         for j in range(atom_type_board.shape[1]):
             atom_type = atom_type_board[i, j]
-            if atom_type == 0: 
+            if atom_type == 0:
                 out[i, j] = True
             if atom_type & player_value:
                 out[i, j] = True
 
     return out
+
 
 def allowed_moves(state, player):
     atom_type_board = state.atom_type
@@ -27,10 +29,12 @@ def allowed_moves(state, player):
     out = allowed_moves_jitted(atom_type_board, player_value)
     return out.nonzero()
 
+
 @numba.jit
 def board_utility(atom_type_board):
     global utility_func
-    return  utility_func(atom_type_board)
+    return utility_func(atom_type_board)
+
 
 @numba.njit
 def is_terminal(atom_type_board):
@@ -47,16 +51,17 @@ def is_terminal(atom_type_board):
     else:
         return True
 
+
 @numba.njit
 def do_move(state, i, j, player):
     # If the atom at i,j is a union type, make sure we are placing the value of the union type
     atom_type = state.atom_type[i, j]
     if atom_type == 0:
         atom_type = player.value
-    
+
     state.place_atom(i, j, atom_type)
     queue = [(i, j)]
-    
+
     k = 0
     while len(queue) > 0:
         i, j = queue.pop(-1)
@@ -66,15 +71,16 @@ def do_move(state, i, j, player):
             # utilities = board_utility(state.atom_type)
             if is_terminal(state.atom_type):
                 return state
-                
+
             queue.extend(affected_neighbours)
             k += 1
-            
+
         if k >= 100:
             # print(print_board(state))
             raise Exception('Infinite detected')
 
     return state
+
 
 def game_step(state, player, move):
     if is_terminal(state.atom_type):

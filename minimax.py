@@ -5,17 +5,17 @@ from config import *
 from board import *
 from game import *
 
+
 def minimax_step(curr_state: Board, curr_player: Players, depth: int):
-    
     utilities = board_utility(curr_state.atom_type)
     if is_terminal(curr_state.atom_type):
         return utilities, None
 
     if depth > 3:
         return board_utility(curr_state.atom_type), None
-    
+
     curr_player_idx = curr_player.get_zero_indexed_player_idx()
-    
+
     if utilities[curr_player_idx] == 0:
         # the player has no more atoms he can control
         # proceed onto the next player in the tree
@@ -75,8 +75,3 @@ def minimax_step(curr_state: Board, curr_player: Players, depth: int):
 
     # assert best_move is not None
     return max_utilities, best_move
-
-
-
-
-    

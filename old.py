@@ -9,10 +9,10 @@
 #     utilities = board_utility(state.atom_type)
 #     while not is_terminal(state.atom_type):
 #         curr_player_idx = curr_player.get_zero_indexed_player_idx()
-        
+
 #         if utilities[curr_player_idx] == 0:
 #             curr_player = curr_player.next_player()
-        
+
 #         else:
 #             pred_utility, move = minimax_step(state.get_copy(), deepcopy(curr_player), 0)
 
@@ -26,7 +26,6 @@
 #                     rand_player = players[choice - 1]
 #                     state.atom_type[move[0], move[1]] = rand_player.value
 #                     # curr_player = player
-                
 
 
 #             state = do_move(state, move[0], move[1], rand_player)

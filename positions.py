@@ -1,5 +1,6 @@
 from enum import IntEnum, Flag, auto
 
+
 class Positions(IntEnum):
     # corner positions
     TOP_LEFT_CORNER = auto()
@@ -13,5 +14,5 @@ class Positions(IntEnum):
     TOP_SIDE = auto()
     BOTTOM_SIDE = auto()
 
-    # remainig position
+    # remaining position
     INSIDE = auto()
