@@ -1,4 +1,5 @@
 from threeplayers import *
+from four_players import *
 
-Players = ThreePlayers
-utility_func = three_player_utility
+Players = FourPlayers
+utility_func = four_player_utility
