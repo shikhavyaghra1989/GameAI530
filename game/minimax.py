@@ -1,6 +1,6 @@
 from config import *
 from game import *
-
+from board import *
 
 def minimax_step(curr_state: Board, curr_player: Players, depth: int):
     utilities = board_utility(curr_state.atom_type)
