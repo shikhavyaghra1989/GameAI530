@@ -176,7 +176,7 @@ class Board():
             return [(i, j - 1), (i, j + 1), (i - 1, j), (i + 1, j)]
 
 
-def print_board(board: Board):
+def format_board(board: Board):
     def formatter(x):
         if x == 0:
             return '0'
@@ -190,4 +190,4 @@ def print_board(board: Board):
     res = np.char.add('-', players)
     res = np.char.add(atom_count_board, res)
     res = np.where(res == '0-0', '----', res)
-    return repr(res)
+    return res
