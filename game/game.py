@@ -4,7 +4,7 @@ import numpy as np
 import config
 
 utility_func = config.utility_func
-
+decay_probs = config.decay_probs
 
 @numba.njit
 def allowed_moves_jitted(atom_type_board, player_value):
@@ -82,6 +82,8 @@ def do_move(state, i, j, player):
 
 
 def game_step(state, player, move):
+    global decay_probs
+    
     if is_terminal(state.atom_type):
         return state, None
 
@@ -89,7 +91,7 @@ def game_step(state, player, move):
     player_for_atom_type = config.Players(atom_type)
     random_player = player
     if player_for_atom_type.is_union_player():
-        choice = np.random.choice(3, 1, p=[0.6, 0.2, 0.2])[0]
+        choice = np.random.choice(3, 1, p=decay_probs)[0]
         if choice != 0:
             members = player_for_atom_type.get_union_player_members()
             random_player = members[choice - 1]

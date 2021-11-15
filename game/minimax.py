@@ -2,7 +2,11 @@ from config import *
 from game import *
 from board import *
 
+decay_probs = config.decay_probs
+
 def minimax_step(curr_state: Board, curr_player: Players, depth: int):
+    global decay_probs
+
     utilities = board_utility(curr_state.atom_type)
     if is_terminal(curr_state.atom_type):
         return utilities, None
@@ -37,21 +41,21 @@ def minimax_step(curr_state: Board, curr_player: Players, depth: int):
             # no change
             next_state = do_move(temp_state.get_copy(), row_idx, col_idx, curr_player)
             utility, move = minimax_step(next_state, curr_player.next_player(), depth + 1)
-            avg_utilities += 0.6 * utility
+            avg_utilities += decay_probs[0] * utility
 
             # P_a change
             next_state = temp_state.get_copy()
             next_state.atom_type[row_idx, col_idx] = P_a.value
             next_state = do_move(next_state, row_idx, col_idx, P_a)
             utility, move = minimax_step(next_state, curr_player.next_player(), depth + 1)
-            avg_utilities += 0.2 * utility
+            avg_utilities += decay_probs[1] * utility
 
             # P_b change
             next_state = temp_state.get_copy()
             next_state.atom_type[row_idx, col_idx] = P_b.value
             next_state = do_move(next_state, row_idx, col_idx, P_b)
             utility, move = minimax_step(next_state, curr_player.next_player(), depth + 1)
-            avg_utilities += 0.2 * utility
+            avg_utilities += decay_probs[2] * utility
 
             if avg_utilities[curr_player_idx] > max_player_utility:
                 max_player_utility = utilities[curr_player_idx]
