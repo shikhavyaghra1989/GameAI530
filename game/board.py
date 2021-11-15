@@ -177,10 +177,17 @@ class Board():
 
 
 def print_board(board: Board):
+    def formatter(x):
+        if x == 0:
+            return '0'
+        else:
+            return config.Players(x).name
+
     atom_count_board = board.atom_count.astype(str)
-    f = np.vectorize(lambda x: config.Players(x).name)
+    f = np.vectorize(formatter)
     players = f(board.atom_type)
 
     res = np.char.add('-', players)
     res = np.char.add(atom_count_board, res)
+    res = np.where(res == '0-0', '----', res)
     return repr(res)

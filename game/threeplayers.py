@@ -5,7 +5,6 @@ import numpy as np
 
 
 class ThreePlayers(Flag):
-    P0 = 0
     P1 = auto()
     P2 = auto()
     P3 = auto()
@@ -19,7 +18,6 @@ class ThreePlayers(Flag):
         return self.value.bit_length() - 1
 
     def next_player(self):
-        assert self != ThreePlayers.P0
         if self == ThreePlayers.P1:
             return ThreePlayers.P2
         if self == ThreePlayers.P2:
