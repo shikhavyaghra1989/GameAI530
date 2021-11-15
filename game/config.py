@@ -1,4 +1,4 @@
-from threeplayers import *
+from three_players import *
 from four_players import *
 
 Players = FourPlayers
