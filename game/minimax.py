@@ -3,6 +3,7 @@ from game import *
 from board import *
 
 decay_probs = config.decay_probs
+max_depth = config.minimax_max_depth
 
 def minimax_step(curr_state: Board, curr_player: Players, depth: int):
     global decay_probs
@@ -11,7 +12,7 @@ def minimax_step(curr_state: Board, curr_player: Players, depth: int):
     if is_terminal(curr_state.atom_type):
         return utilities, None
 
-    if depth > 3:
+    if depth > max_depth:
         return board_utility(curr_state.atom_type), None
 
     curr_player_idx = curr_player.get_zero_indexed_player_idx()
