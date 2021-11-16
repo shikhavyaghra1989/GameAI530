@@ -27,9 +27,9 @@
 <ol>
   <li>The game will be limited to a maximum of 4-players.</li>
   <li>The game board will be restricted to at most an 8x8 grid.</li>
-  <li>During the start of the game, there exists special orbs, each of which can be controlled by any two randomly chosen players</li>
-  <li>The special orbs, on interaction by a player, will randomly decay into the orbs of the players who can control it. This introduces a probabilistic element into the game, leading to unpredictable results</li>
-  <li>Using the special orbs, two players can team up to dominate other players. On the other hand, each player has to take into account the possibility of their actions unduly being taken advantage of their partner due to random decays</li>
+  <li>During the start of the game, there exists special orbs, each of which can be controlled by any two randomly chosen players.</li>
+  <li>The special orbs, on interaction by a player, will randomly decay into the orbs of the players who can control it. This introduces a probabilistic element into the game, leading to unpredictable results.</li>
+  <li>Using the special orbs, two players can team up to dominate other players. On the other hand, each player has to take into account the possibility of their actions unduly being taken advantage of their partner due to random decays.</li>
 </ol>
 
 ## Status
