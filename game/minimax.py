@@ -5,6 +5,7 @@ from board import *
 decay_probs = config.decay_probs
 max_depth = config.minimax_max_depth
 
+
 def minimax_step(curr_state: Board, curr_player: Players, depth: int):
     global decay_probs
 

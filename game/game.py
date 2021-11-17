@@ -83,9 +83,6 @@ def do_move(state, i, j, player):
 
 def game_step(state, player, move):
     global decay_probs
-    
-    if is_terminal(state.atom_type):
-        return state, None
 
     atom_type = state.atom_type[move[0], move[1]]
     player_for_atom_type = config.Players(atom_type)
@@ -106,4 +103,4 @@ def game_step(state, player, move):
     while utilities[player.get_zero_indexed_player_idx()] == 0:
         player = player.next_player()
 
-    return state, player
+    return state, player, utilities, is_terminal(state.atom_type)
