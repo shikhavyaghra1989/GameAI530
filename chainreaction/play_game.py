@@ -1,3 +1,6 @@
+"""
+@description : Code to test the game
+"""
 from copy import deepcopy
 from minimax import *
 

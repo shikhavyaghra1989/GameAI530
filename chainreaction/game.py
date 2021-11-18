@@ -1,10 +1,8 @@
-import numba
-import numpy as np
+from chainreaction.config import *
 
-import config
+utility_func = utility_func
+decay_probs = decay_probabilities
 
-utility_func = config.utility_func
-decay_probs = config.decay_probs
 
 @numba.njit
 def allowed_moves_jitted(atom_type_board, player_value):
@@ -85,7 +83,7 @@ def game_step(state, player, move):
     global decay_probs
 
     atom_type = state.atom_type[move[0], move[1]]
-    player_for_atom_type = config.Players(atom_type)
+    player_for_atom_type = Players(atom_type)
     random_player = player
     if player_for_atom_type.is_union_player():
         choice = np.random.choice(3, 1, p=decay_probs)[0]

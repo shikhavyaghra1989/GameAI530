@@ -2,12 +2,12 @@ from flask import Flask
 from flask import render_template
 
 from copy import deepcopy
-from game.minimax import *
+from chainreaction.minimax import *
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/next_state")
 def next_state(state, player, move=None):
     if player != "4":
         _, move = minimax_step(state.get_copy(), deepcopy(player), 0)
@@ -23,7 +23,7 @@ def next_state(state, player, move=None):
         return state, format_board(state)
 
 
-@app.route("/")
+@app.route("/play")
 def play(w, h):
     state = Board(w, h)
     state.place_atom(0, 0, FourPlayers.P1.value)

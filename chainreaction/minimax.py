@@ -1,9 +1,8 @@
-from config import *
-from game import *
-from board import *
+from chainreaction.game import *
+from chainreaction.board import *
 
-decay_probs = config.decay_probs
-max_depth = config.minimax_max_depth
+decay_probs = decay_probabilities
+max_depth = minimax_max_depth
 
 
 def minimax_step(curr_state: Board, curr_player: Players, depth: int):
@@ -36,7 +35,7 @@ def minimax_step(curr_state: Board, curr_player: Players, depth: int):
 
         atom = Players(temp_state.atom_type[row_idx, col_idx])
         if atom.is_union_player():
-            P_a, P_b = atom.get_union_player_members()
+            p_a, p_b = atom.get_union_player_members()
             avg_utilities = np.zeros(Players.num_players())
 
             # map out the possibilities
@@ -47,15 +46,15 @@ def minimax_step(curr_state: Board, curr_player: Players, depth: int):
 
             # P_a change
             next_state = temp_state.get_copy()
-            next_state.atom_type[row_idx, col_idx] = P_a.value
-            next_state = do_move(next_state, row_idx, col_idx, P_a)
+            next_state.atom_type[row_idx, col_idx] = p_a.value
+            next_state = do_move(next_state, row_idx, col_idx, p_a)
             utility, move = minimax_step(next_state, curr_player.next_player(), depth + 1)
             avg_utilities += decay_probs[1] * utility
 
             # P_b change
             next_state = temp_state.get_copy()
-            next_state.atom_type[row_idx, col_idx] = P_b.value
-            next_state = do_move(next_state, row_idx, col_idx, P_b)
+            next_state.atom_type[row_idx, col_idx] = p_b.value
+            next_state = do_move(next_state, row_idx, col_idx, p_b)
             utility, move = minimax_step(next_state, curr_player.next_player(), depth + 1)
             avg_utilities += decay_probs[2] * utility
 

@@ -1,8 +1,5 @@
-import numba
-import numpy as np
-
-import config
-from positions import Positions
+from chainreaction.config import *
+from chainreaction.positions import Positions
 
 
 @numba.njit
@@ -181,7 +178,7 @@ def format_board(board: Board):
         if x == 0:
             return '0'
         else:
-            return config.Players(x).name
+            return Players(x).name
 
     atom_count_board = board.atom_count.astype(str)
     f = np.vectorize(formatter)

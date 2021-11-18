@@ -3,7 +3,7 @@
 
 # from config import *
 # from board import *
-# from game import *
+# from chainreaction import *
 
 # def minimax_game(state: Board, curr_player):
 #     utilities = board_utility(state.atom_type)

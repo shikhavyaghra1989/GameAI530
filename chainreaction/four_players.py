@@ -69,14 +69,22 @@ def four_player_utility(atom_type_board):
             p = atom_type_board[i, j]
 
             count = 0
-            if p & FourPlayers.P1.value: count += 1
-            if p & FourPlayers.P2.value: count += 1
-            if p & FourPlayers.P3.value: count += 1
-            if p & FourPlayers.P4.value: count += 1
+            if p & FourPlayers.P1.value:
+                count += 1
+            if p & FourPlayers.P2.value:
+                count += 1
+            if p & FourPlayers.P3.value:
+                count += 1
+            if p & FourPlayers.P4.value:
+                count += 1
 
-            if p & FourPlayers.P1.value: utilities[0] += 1.0 / count
-            if p & FourPlayers.P2.value: utilities[1] += 1.0 / count
-            if p & FourPlayers.P3.value: utilities[2] += 1.0 / count
-            if p & FourPlayers.P4.value: utilities[3] += 1.0 / count
+            if p & FourPlayers.P1.value:
+                utilities[0] += 1.0 / count
+            if p & FourPlayers.P2.value:
+                utilities[1] += 1.0 / count
+            if p & FourPlayers.P3.value:
+                utilities[2] += 1.0 / count
+            if p & FourPlayers.P4.value:
+                utilities[3] += 1.0 / count
 
     return utilities
