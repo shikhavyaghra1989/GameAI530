@@ -14,10 +14,13 @@ def get_position(i: int, j: int, width: int, height: int):
     bottom = False
 
     if i == 0: top = True
-    if i == width - 1: bottom = True
+    if i == width - 1:
+        bottom = True
 
-    if j == 0: left = True
-    if j == height - 1: right = True
+    if j == 0:
+        left = True
+    if j == height - 1:
+        right = True
 
     # corners
     if left is True and top is True: return Positions.TOP_LEFT_CORNER
