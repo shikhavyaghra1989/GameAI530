@@ -51,7 +51,15 @@ class MCTSNode():
         pass
 
     def rollout(self):
-        pass
+        curr_rollout_state = self.state.get_copy()
+        curr_player = deepcopy(self.player)
+        is_curr_rollout_state_terminal = self.is_state_terminal
+        while not is_curr_rollout_state_terminal:
+            possible_moves = self.get_legal_actions(curr_rollout_state, curr_player)
+            action = self.rollout_policy(possible_moves)
+            curr_rollout_state, curr_player, _, is_curr_rollout_state_terminal = game_step(curr_rollout_state, curr_player, action)
+            
+        return get_scores(curr_rollout_state)
 
     def backpropagate(self, result):
         pass
@@ -124,17 +132,6 @@ class MCTSNormalNode(MCTSNode):
             self.children.append(child_node)
             return child_node
 
-    def rollout(self):
-        curr_rollout_state = self.state.get_copy()
-        curr_player = deepcopy(self.player)
-        is_curr_rollout_state_terminal = self.is_state_terminal
-        while not is_curr_rollout_state_terminal:
-            possible_moves = self.get_legal_actions(curr_rollout_state, curr_player)
-            action = self.rollout_policy(possible_moves)
-            curr_rollout_state, curr_player, _, is_curr_rollout_state_terminal = game_step(curr_rollout_state, curr_player, action)
-            
-        return get_scores(curr_rollout_state)
-
     def backpropagate(self, result):
         self._number_of_visits += 1
         self._cumulative_scores += result
@@ -142,9 +139,10 @@ class MCTSNormalNode(MCTSNode):
             self.parent.backpropagate(result)
 
     def best_child(self, c_param=0.1):
-        choices_weights = [(c.q() / c.n()) + c_param * np.sqrt((2 * np.log(self.n()) / c.n())) for c in self.children]
-        choices_weights = [w[self.player.get_zero_indexed_player_idx()] for w in choices_weights]
-        return self.children[np.argmax(choices_weights)]
+        choices_weights = ( (c.q() / c.n()) + c_param * np.sqrt((2 * np.log(self.n()) / c.n())) for c in self.children )
+        choices_weights = map(lambda w: w[self.player.get_zero_indexed_player_idx()], choices_weights)
+        res = np.argmax(choices_weights)
+        return self.children[res]
 
 
 class MCTSChanceNode(MCTSNode):
@@ -189,17 +187,6 @@ class MCTSChanceNode(MCTSNode):
     def expand(self):
         # assume chance node is always fully expanded
         pass
-
-    def rollout(self):
-        curr_rollout_state = self.state.get_copy()
-        curr_player = deepcopy(self.player)
-        is_curr_rollout_state_terminal = self.is_state_terminal
-        while not is_curr_rollout_state_terminal:
-            possible_moves = self.get_legal_actions(curr_rollout_state, curr_player)
-            action = self.rollout_policy(possible_moves)
-            curr_rollout_state, curr_player, _, is_curr_rollout_state_terminal = game_step(curr_rollout_state, curr_player, action)
-            
-        return get_scores(curr_rollout_state)
 
     def backpropagate(self, result):
         self._number_of_visits += 1

@@ -5,4 +5,4 @@ utility_func = four_player_utility
 decay_probabilities = [0.8, 0.1, 0.1]
 
 minimax_max_depth = 5
-mcts_max_simulations = 9000
+mcts_max_simulations = 5000
