@@ -1,7 +1,163 @@
-<!DOCTYPE html>
-<html>
-   <body>
-      <h1>My First Heading</h1>
-      <p>My first paragraph.</p>
-   </body>
+<!doctype html>
+<html lang="en" xmlns:input="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+</head>
+<body>
+    <div class="container" style="background-color: #D3D3D3">
+      <div class="row no-gutters">
+        <h1 class="game--title">Chain reaction</h1>
+        <div class="col-sm-4 no-gutters">
+          <div class=" details" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="detailsbox" style=" margin-top: 40px; padding:20px">
+                      <label for="2"  class=" radio">
+                        <div>Number Of players: </div>
+                        <input type="radio" name="noOfPlayers" id="two"  value="2" class="radio__input" checked>2</input>
+                      </label>
+                      <label for="3" class="radio">
+                        <input type="radio" name="noOfPlayers" id="three" value="3" class="radio__input">3</input>
+
+                      </label>
+                      <label for="4" class="radio">
+                          <input type="radio" name="noOfPlayers" id="four" value="4" class="radio__input">4</input>
+                      </label>
+                  </div>
+                </div>
+                <div class="col-sm-12" >
+                  <div class="detailsbox" style=" margin-top: 20px; padding:10px;" >
+                    <div id = "playerDetails1" >
+                      <label > Player 1 :&nbsp&nbsp</label>
+                       <span class="dot" style="background-color: red; box-shadow:0 0 10px 1px #900;"></span>
+                      <input type="text" id="player1"></br>
+                    </div>
+                    <div id = "playerDetails2" style=" margin-top: 15px;">
+                      <label > Player 2: &nbsp&nbsp</label>
+                      <span class="dot" style="background-color: #00FF00; box-shadow:0 0 10px 1px #00FF00;"></span>
+                      <input type="text" id="player2"  ></br>
+                    </div>
+                    <div id = "playerDetails3" style=" display:none; margin-top: 15px;">
+                      <label > Player 3: &nbsp&nbsp</label>
+                      <span class="dot" style="background-color: #0000FF; box-shadow:0 0 10px 1px #0000FF;"></span>
+                      <input type="text"  id="player3"></br>
+
+                    </div>
+                    <div id = "playerDetails4" style=" display:none; margin-top: 15px;">
+                      <label > Player 4:&nbsp</label>
+                      <span class="dot" style="background-color: #FFA500; box-shadow:0 0 10px 1px #FFA500;"></span>
+                      <input type="text" id="player4"></br>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12" >
+                  <div class="detailsbox" style=" margin-top: 20px; padding:10px">
+                      <label id = "scorePlayer1"> Player 1 Score: 0 </label></br>
+                      <label id = "scorePlayer2"> Player 2 Score: 0</label></br>
+                      <label id = "scorePlayer3" style="display:none;"> Player 3 Score: 0</label></br>
+                      <label id = "scorePlayer4" style="display:none;" > Player 4 Score: 0</label></br>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12">
+                <button class="game--start">Start Game</button>
+              </div>
+
+
+
+          </div>
+        </div>
+        <div class="col-sm-5 no-gutters">
+          <div class="game">
+            <section class="box">
+                <div class="game--container">
+                    <div data-cell-index="0" class="cell"></div>
+                    <div data-cell-index="1" class="cell"></div>
+                    <div data-cell-index="2" class="cell"></div>
+                    <div data-cell-index="3" class="cell"></div>
+                    <div data-cell-index="4" class="cell"></div>
+                    <div data-cell-index="5" class="cell"></div>
+                    <div data-cell-index="6" class="cell"></div>
+                    <div data-cell-index="7" class="cell"></div>
+                    <div data-cell-index="8" class="cell"></div>
+                    <div data-cell-index="9" class="cell"></div>
+                    <div data-cell-index="10" class="cell"></div>
+                    <div data-cell-index="11" class="cell"></div>
+                    <div data-cell-index="12" class="cell"></div>
+                    <div data-cell-index="13" class="cell"></div>
+                    <div data-cell-index="14" class="cell"></div>
+                    <div data-cell-index="15" class="cell"></div>
+                    <div data-cell-index="16" class="cell"></div>
+                    <div data-cell-index="17" class="cell"></div>
+                    <div data-cell-index="18" class="cell"></div>
+                    <div data-cell-index="19" class="cell"></div>
+                    <div data-cell-index="20" class="cell"></div>
+                    <div data-cell-index="21" class="cell"></div>
+                    <div data-cell-index="22" class="cell"></div>
+                    <div data-cell-index="23" class="cell"></div>
+                    <div data-cell-index="24" class="cell"></div>
+                    <div data-cell-index="25" class="cell"></div>
+                    <div data-cell-index="26" class="cell"></div>
+                    <div data-cell-index="27" class="cell"></div>
+                    <div data-cell-index="28" class="cell"></div>
+                    <div data-cell-index="29" class="cell"></div>
+                    <div data-cell-index="30" class="cell"></div>
+                    <div data-cell-index="31" class="cell"></div>
+                    <div data-cell-index="32" class="cell"></div>
+                    <div data-cell-index="33" class="cell"></div>
+                    <div data-cell-index="34" class="cell"></div>
+                    <div data-cell-index="35" class="cell"></div>
+                    <div data-cell-index="36" class="cell"></div>
+                    <div data-cell-index="37" class="cell"></div>
+                    <div data-cell-index="38" class="cell"></div>
+                    <div data-cell-index="39" class="cell"></div>
+                    <div data-cell-index="40" class="cell"></div>
+                    <div data-cell-index="41" class="cell"></div>
+                    <div data-cell-index="42" class="cell"></div>
+                    <div data-cell-index="43" class="cell"></div>
+                    <div data-cell-index="44" class="cell"></div>
+                    <div data-cell-index="45" class="cell"></div>
+                    <div data-cell-index="46" class="cell"></div>
+                    <div data-cell-index="47" class="cell"></div>
+                    <div data-cell-index="48" class="cell"></div>
+                    <div data-cell-index="49" class="cell"></div>
+                    <div data-cell-index="50" class="cell"></div>
+                    <div data-cell-index="51" class="cell"></div>
+                    <div data-cell-index="52" class="cell"></div>
+                    <div data-cell-index="53" class="cell"></div>
+                    <div data-cell-index="54" class="cell"></div>
+                    <div data-cell-index="55" class="cell"></div>
+                    <div data-cell-index="56" class="cell"></div>
+                    <div data-cell-index="57" class="cell"></div>
+                    <div data-cell-index="58" class="cell"></div>
+                    <div data-cell-index="59" class="cell"></div>
+                    <div data-cell-index="60" class="cell"></div>
+                    <div data-cell-index="61" class="cell"></div>
+                    <div data-cell-index="62" class="cell"></div>
+                    <div data-cell-index="63" class="cell"></div>
+                </div>
+
+            </section>
+          </div>
+        </div>
+        <div class="col-sm-2">
+                <h2 class="game--status"></h2>
+                <button class="game--restart">Restart Game</button>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="./js/index.js"></script>
+</body>
 </html>

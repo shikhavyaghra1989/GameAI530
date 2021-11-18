@@ -1,0 +1,3 @@
+#!/Users/shikhavyaghra/PycharmProjects/GameAI530/venv/bin/python
+from numba.pycc import main
+main()
