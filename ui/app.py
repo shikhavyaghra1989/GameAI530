@@ -13,12 +13,11 @@ players_details = dict()
 @app.route("/next_state", methods=['POST'])
 def next_state():
     """
-    :accepts move: Move made by player
+    :accepts move: Move made by player. Example: 1,2
     :return: JSON with game status, winner name and new board state
     """
     global players_details, state, current_player
-
-    move = request.form['move']
+    move = tuple(request.form['move'].split(","))
 
     if current_player != "player4":
         _, move = minimax_step(state.get_copy(), deepcopy(players_details[current_player]), 0)
