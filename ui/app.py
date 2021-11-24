@@ -60,14 +60,14 @@ def make_board_state(new_state):
     return board_state
 
 
-@app.route("/next_state", methods=['POST'])
+@app.route("/next_state", methods=["GET", "POST"])
 def next_state():
     """
     :accepts move: Move made by player. Example: 1,2
     :return: JSON with game status, winner name and new board state
     """
     global players_details, state, current_player, w, h, colors
-    move = tuple(request.form['move'].split(","))
+    move = tuple(map(int, request.args.get('move').split(",")))
 
     if current_player != "player4":
         _, move = minimax_step(state.get_copy(), deepcopy(players_details[current_player]), 0)
@@ -94,7 +94,7 @@ def next_state():
     return jsonify(body)
 
 
-@app.route("/play", methods=['POST'])
+@app.route("/play", methods=["GET", "POST"])
 def play():
     """
     :accepts w: width of board
@@ -104,16 +104,17 @@ def play():
     """
     global players_details, state, current_player, w, h
 
-    w = request.form['w']
-    h = request.form['h']
+    w = int(request.args.get('w'))
+    h = int(request.args.get('h'))
+
     players = [FourPlayers.P1, FourPlayers.P2, FourPlayers.P3, FourPlayers.P4]
-    player_names = request.form['players'].split(",")
+    player_names = request.args.get('players').split(",")
     players_details = dict(zip(player_names, players))
 
     state = Board(w, h)
     state.place_atom(0, 0, FourPlayers.P1.value)
-    state.place_atom(0, w-1, FourPlayers.P23.value)
-    state.place_atom(h-1, 0, FourPlayers.P32.value)
+    state.place_atom(0, w-1, FourPlayers.P2.value)
+    state.place_atom(h-1, 0, FourPlayers.P3.value)
     current_player = player_names[3]
     print("Initial State:")
     print(format_board(state))
