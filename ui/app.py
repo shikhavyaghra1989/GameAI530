@@ -24,7 +24,6 @@ colors = ['red', 'blue', 'yellow', 'green',
 
 
 def make_board_state(new_state):
-    print(new_state)
     global w, h
     row = 0
     col = 0
