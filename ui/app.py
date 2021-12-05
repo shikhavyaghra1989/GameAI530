@@ -24,12 +24,17 @@ colors = ['red', 'blue', 'yellow', 'green',
 
 
 def make_board_state(new_state):
+    print(new_state)
     global w, h
     row = 0
     col = 0
     board_state = "["
     for item in new_state:
         if item[0].isdigit() or item.startswith('-'):
+            if item.startswith('-'):
+                atoms = '0'
+            else:
+                atoms = item[0]
             col += 1
             if item[3:] == "1":
                 color = colors[0]
@@ -53,7 +58,7 @@ def make_board_state(new_state):
                 color = colors[9]
             else:
                 color = colors[10]
-            board_state += "(" + str(row) + "," + str(col) + "," + color + ")"
+            board_state += "(" + str(row) + "," + str(col) + "," + color + "," + atoms + ")"
             if col == w:
                 row += 1
                 col = 0
