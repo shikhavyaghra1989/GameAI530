@@ -85,17 +85,19 @@ def next_state():
     board_state = make_board_state(new_state)
     if terminal:
         max_value = max(utilities)
-        won_players = [i + 1 for i, j in enumerate(utilities) if j == max_value]
+        won_players = [player_names[i] for i, j in enumerate(utilities) if j == max_value]
         body = {
             'is_completed': 1,
-            'winners': won_players,
-            'board_state': board_state
+            'winners': ",".join(won_players),
+            'board_state': board_state,
+            'next_player': current_player
         }
     else:
         body = {
             'is_completed': 0,
             'winners': "",
-            'board_state': board_state
+            'board_state': board_state,
+            'next_player': current_player
         }
     return jsonify(body)
 
