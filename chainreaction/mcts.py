@@ -197,3 +197,10 @@ class MCTSChanceNode(MCTSNode):
     def best_child(self, c_param=0.1):
         choice = np.random.choice(3, 1, p=self.decay_probs)[0]
         return self.children[choice]
+
+
+def mcts_step(state, player, n=0):
+    # make sure we are calling the right type of mcts node
+    # maybe handle it in base mcts node class
+    root = MCTSNormalNode(state, parent=None, parent_action=None, player=player)
+    return None, root.best_action().parent_action
