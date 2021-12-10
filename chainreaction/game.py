@@ -90,9 +90,11 @@ def game_step(state, player, move):
         if choice != 0:
             members = player_for_atom_type.get_union_player_members()
             random_player = members[choice - 1]
+
+            num_initial_atoms = state.atom_count[move[0], move[1]]
             state.clear_cell(move[0], move[1])
-            state.place_atom(move[0], move[1], random_player.value)
-            # state.atom_type[move[0], move[1]] = random_player.value
+            for i in range(num_initial_atoms):
+                state.place_atom(move[0], move[1], random_player.value)
 
     state = do_move(state, move[0], move[1], random_player)
     # Determine who gets to play next. Look for someone having non zero utility
