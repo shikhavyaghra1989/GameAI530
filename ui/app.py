@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from flask import render_template
 
-from copy import deepcopy
 from chainreaction.minimax import *
+from chainreaction.mcts import *
 
 app = Flask(__name__)
 w = 3
@@ -65,6 +65,13 @@ def make_board_state(new_state):
     return board_state
 
 
+def mcts_step(state_passed, player):
+    # make sure we are calling the right type of mcts node
+    # maybe handle it in base mcts node class
+    root = MCTSNormalNode(state_passed, parent=None, parent_action=None, player=player)
+    return None, root.best_action().parent_action
+
+
 @app.route("/next_state", methods=["GET", "POST"])
 def next_state():
     """
@@ -74,8 +81,15 @@ def next_state():
     global player_names, players_details, state, current_player, w, h, colors
     move = tuple(map(int, request.args.get('move', "0,0").split(",")))
 
-    if current_player != player_names[3]:
+    if current_player == player_names[0]:
         _, move = minimax_step(state.get_copy(), deepcopy(players_details[current_player]), 0)
+
+    if current_player == player_names[1]:
+        _, move = mcts_step(state.get_copy(), deepcopy(players_details[current_player]))
+
+    if current_player == player_names[2]:
+        _, move = minimax_step(state.get_copy(), deepcopy(players_details[current_player]), 0)
+
     print(f'{current_player} placing on {move}')
     state, player, utilities, terminal = game_step(state, players_details[current_player], move)
     current_player = player_names[int(str(player.name)[-1])-1]
@@ -108,6 +122,7 @@ def play():
     :accepts w: width of board
     :accepts h: players of board
     :accepts players: A comma separated string of player names
+    :accepts mode: Single Player or Multi Player
     :return: JSON with game status, next player name and new board state
     """
     global player_names, players_details, state, current_player, w, h
