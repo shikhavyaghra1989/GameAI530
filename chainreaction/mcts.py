@@ -36,6 +36,7 @@ class MCTSNode():
 
         self._untried_actions = None
         self._untried_actions = self.untried_actions()
+        self.num_simulations = None
 
     def untried_actions(self):
         self._untried_actions = self.get_legal_actions(self.state, self.player)
@@ -83,8 +84,7 @@ class MCTSNode():
         return current_node
 
     def best_action(self):
-        simulation_no = mcts_max_simulations
-        for i in range(simulation_no):
+        for i in range(self.num_simulations):
             v = self._tree_policy()
             reward = v.rollout()
             v.backpropagate(reward)
@@ -199,8 +199,9 @@ class MCTSChanceNode(MCTSNode):
         return self.children[choice]
 
 
-def mcts_step(state, player, n=0):
+def mcts_step(state, player, n=0, num_simulations=mcts_max_simulations):
     # make sure we are calling the right type of mcts node
     # maybe handle it in base mcts node class
     root = MCTSNormalNode(state, parent=None, parent_action=None, player=player)
+    root.num_simulations = num_simulations
     return None, root.best_action().parent_action

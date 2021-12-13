@@ -16,49 +16,14 @@ from chainreaction.minimax import *
 from chainreaction.mcts import *
 from chainreaction.four_players import *
 
+from experiments.utils import *
+
 from tqdm import tqdm
 
 
-
-def get_fresh_board(atom_order):
-    w, h = 3, 3
-    state = Board(w, h)
-    state.place_atom(0, 0, atom_order[0].value)
-    state.place_atom(0, 2, atom_order[1].value)
-    state.place_atom(2, 0, atom_order[2].value)
-    state.place_atom(2, 2, atom_order[3].value)
-    return state
+from experiments import ai_comparison_experiments
 
 
-def simulate_game(ai_func, init_atoms, n=0):
-    state = get_fresh_board(init_atoms)
-    history = []
-    player = deepcopy(FourPlayers.P1)
-    temp_player = player
-    moves_count = 0
-    while True:
-        before = state.get_copy()
-        curr_player = deepcopy(player)
-        _, move = ai_func(state.get_copy(), deepcopy(player), 0)
-        moves_count += 1
-        state, player, utilities, terminal = game_step(state, player, move)
-        after = state.get_copy()
-        history.append((before._data, after._data, curr_player))
-        if terminal and moves_count>4:
-            max_value = max(utilities)
-            won_players = [i+1 for i, j in enumerate(utilities) if j == max_value]
-            break
-
-        temp_player = player
-    return history
-
-def convert(data):
-    before, after, player = data
-    before_board = Board(3, 3)
-    before_board._data[:] = before
-    after_board = Board(3, 3)
-    after_board._data[:] = after
-    return (before_board, after_board, player)
 
 
 def get_win_stats(simulations, player):
@@ -95,17 +60,18 @@ def team_individual_only_win_stats(simulations, team_players):
 
 
 
-
 def run_experiments(pool, num_simulations):
-    init_atoms = [FourPlayers.P13, FourPlayers.P2, FourPlayers.P13, FourPlayers.P4]
-    team = [FourPlayers.P1, FourPlayers.P3]
-    ind = [FourPlayers.P2, FourPlayers.P4]
+    init_atoms = [FourPlayers.P12, FourPlayers.P12, FourPlayers.P3, FourPlayers.P4]
+    team = [FourPlayers.P1, FourPlayers.P2]
+    ind = [FourPlayers.P3, FourPlayers.P4]
 
-    part_func = partial(simulate_game, minimax_step, init_atoms)
+    player_ai_funcs = [minimax_step, minimax_step, minimax_step, minimax_step]
+    part_func = partial(simulate_game, player_ai_funcs, init_atoms)
     sims_minimax = pool.map(part_func, range(num_simulations))
     sims_minimax = [list(map(convert, history)) for history in sims_minimax]
 
-    part_func = partial(simulate_game, mcts_step, init_atoms)
+    player_ai_funcs = [mcts_step, mcts_step, mcts_step, mcts_step]
+    part_func = partial(simulate_game, player_ai_funcs, init_atoms)
     sims_mcts = pool.map(part_func, range(num_simulations))
     sims_mcts = [list(map(convert, history)) for history in sims_mcts]
 
@@ -125,7 +91,9 @@ def run_experiments(pool, num_simulations):
 
 if __name__ == '__main__':
     pool = Pool(8)
-    run_experiments(pool, 100)
+    ai_comparison_experiments.run_experiments(pool, 100)
+
+    # run_experiments(pool, 100)
 
     # num_simulations = 100
     # ind_stats = [0, 0, 0, 0]
