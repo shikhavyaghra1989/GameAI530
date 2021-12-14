@@ -92,7 +92,7 @@ def next_state():
 
     print(f'{current_player} placing on {move}')
     state, player, utilities, terminal = game_step(state, players_details[current_player], move)
-    current_player = player_names[int(str(player.name)[-1])-1]
+    current_player = player_names[int(str(player.name)[-1]) - 1]
     print("New State:")
     print(format_board(state))
     new_state = str(str(format_board(state))[1:-1].split(" ")).split("'")
@@ -127,8 +127,9 @@ def play():
     """
     global player_names, players_details, state, current_player, w, h
 
-    w = int(request.args.get('w'))
-    h = int(request.args.get('h'))
+    w = int(request.args.get('w', 5))
+    h = int(request.args.get('h', 5))
+    mode = request.args.get('mode', 'multi')
 
     players = [FourPlayers.P1, FourPlayers.P2, FourPlayers.P3, FourPlayers.P4]
     player_names = request.args.get('players').split(",")
@@ -136,16 +137,21 @@ def play():
 
     state = Board(w, h)
     state.place_atom(0, 0, FourPlayers.P1.value)
-    state.place_atom(0, w-1, FourPlayers.P2.value)
-    state.place_atom(h-1, 0, FourPlayers.P3.value)
-    current_player = player_names[3]
+    state.place_atom(0, w - 1, FourPlayers.P2.value)
+    if mode.lower() == "single":
+        state.place_atom(h - 1, 0, FourPlayers.P3.value)
+        current_player = player_names[3]
+    else:
+        state.place_atom(h - 1, 0, FourPlayers.P34.value)
+        state.place_atom(h - 1, w - 1, FourPlayers.P34.value)
+        current_player = player_names[0]
     print("Initial State:")
     print(format_board(state))
     new_state = str(str(format_board(state))[1:-1].split(" ")).split("'")
     board_state = make_board_state(new_state)
     body = {
         'is_completed': 0,
-        'next_player': player_names[3],
+        'next_player': player_names[3] if mode.lower() == "single" else player_names[0],
         'board_state': board_state
     }
     return jsonify(body)
