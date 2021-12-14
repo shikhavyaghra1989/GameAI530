@@ -5,7 +5,7 @@ function handleCellClick(clickedCellEvent) {
     const clickedCell = clickedCellEvent.target;
     const clickedCellIndex = clickedCell.getAttribute('data-cell-index');
 
-    if (clickedCell.innerHTML !== "" || is_completed)  {
+    if ( is_completed)  {
         return;
     }
 
