@@ -84,26 +84,26 @@ function handleStartGame(){
 }
 
 
-function showPlayerThree() {
-     var selected = document.querySelector("input[name='noOfPlayers']:checked").value;
-     if(selected == "3") {
-        document.querySelector('#playerDetails3').style.display = 'block';
-        document.querySelector('#playerDetails4').style.display = 'none';
-     }
-
-     if(selected == "4") {
-        document.querySelector('#playerDetails3').style.display = 'block';
-        document.querySelector('#playerDetails4').style.display = 'block';
-     }
-
-     if(selected == "2") {
-        document.querySelector('#playerDetails3').style.display = 'none';
-        document.querySelector('#playerDetails4').style.display = 'none';
-     }
-}
+//function showPlayerThree() {
+//     var selected = document.querySelector("input[name='noOfPlayers']:checked").value;
+//     if(selected == "3") {
+//        document.querySelector('#playerDetails3').style.display = 'block';
+//        document.querySelector('#playerDetails4').style.display = 'none';
+//     }
+//
+//     if(selected == "4") {
+//        document.querySelector('#playerDetails3').style.display = 'block';
+//        document.querySelector('#playerDetails4').style.display = 'block';
+//     }
+//
+//     if(selected == "2") {
+//        document.querySelector('#playerDetails3').style.display = 'none';
+//        document.querySelector('#playerDetails4').style.display = 'none';
+//     }
+//}
 
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
 document.querySelector('.game--restart').addEventListener('click', handleRestartGame);
-document.querySelectorAll("input[name='noOfPlayers']").forEach(rad => rad.addEventListener('change', showPlayerThree));
+//document.querySelectorAll("input[name='noOfPlayers']").forEach(rad => rad.addEventListener('change', showPlayerThree));
 document.querySelector('.game--start').addEventListener('click', handleStartGame);
 
