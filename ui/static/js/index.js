@@ -67,10 +67,11 @@ function handleStartGame(){
     var player2 = document.querySelector('#player2').value
     var player3 = document.querySelector('#player3').value
     var player4 = document.querySelector('#player4').value
+    var mode =  document.querySelector("input[name='mode']:checked").value;
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:5001/play?w=5&h=5&players="+player1+","+player2+","+player3+","+player4,
+        url: "http://localhost:5001/play?w=5&h=5&players="+player1+","+player2+","+player3+","+player4+"&mode="+mode,
         contentType: "application/json",
         dataType: "json",
         success: function(response){
